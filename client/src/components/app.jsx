@@ -51,14 +51,19 @@ class App extends React.Component {
   render() {
     return(
       <div>
-        <h1>Restroom Rater</h1>
-        Enter your latitude
-        <input type='text' id='latitude' onChange={this.setLat}/>
-        <div></div>
-        Enter your longitude
-        <input type='text' id='longitude' onChange={this.setLong}/>
-        <button type='submit' onClick={this.restroomSearch}>Search</button>
-        <RestroomList restrooms={this.state.restroomList}/>
+        <h1 className='banner'>Restroom Rater</h1>
+        <div className='cordinates'>
+          Enter your latitude
+          <input type='text' id='latitude' onChange={this.setLat}/>
+          <div></div>
+          Enter your longitude
+          <input type='text' id='longitude' onChange={this.setLong}/>
+          <button type='submit' onClick={this.restroomSearch}>Search</button>
+        </div>
+        <div className='list'>
+          <RestroomList restrooms={this.state.restroomList}/>
+        </div>
+
 
       </div>
 

@@ -1,4 +1,8 @@
 import React from 'react'
+import Rating from './Rating.jsx'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+
 
 class Restroom extends React.Component{
   constructor(props){
@@ -7,6 +11,11 @@ class Restroom extends React.Component{
       showingDetails: false
     }
     this.showDetails = this.showDetails.bind(this);
+  }
+
+  componentDidMount(){
+    this.props.restroom.latitude;
+    this.props.restroom.longitude;
   }
 
   showDetails(e){
@@ -18,16 +27,20 @@ class Restroom extends React.Component{
   render(){
     if(this.state.showingDetails){
       return(
-        <div onClick={this.showDetails}>
+        <div className='restroom'>
+          <div onClick={this.showDetails} className='clickRR'>
           {this.props.restroom.name}
-          {this.props.restroom.directions}
+          </div>
+          <FontAwesomeIcon icon={faMapMarkerAlt} />
+          <Rating />
+
         </div>
+
       )
     } else {
       return(
-        <div onClick={this.showDetails}>
+        <div onClick={this.showDetails} className='clickRR'>
           {this.props.restroom.name}
-
         </div>
       )
       }

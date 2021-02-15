@@ -1,0 +1,30 @@
+.banner {
+  text-align: center;
+  background: lightblue;
+  padding: 60px;
+  font-family: Tahoma;
+}
+
+.cordinates {
+  text-align: center;
+}
+
+.list {
+  text-align: center;
+}
+
+.restroom {
+  padding:10px;
+
+}
+
+.clickRR {
+  font: bold;
+  font-family: Tahoma;
+  font-weight: bold;
+}
+
+
+
+
+
