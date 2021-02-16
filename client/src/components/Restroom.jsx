@@ -38,7 +38,7 @@ class Restroom extends React.Component{
           <div>
             {this.props.restroom.street}
           </div>
-          <Rating/>
+          <Rating restroom={this.props.restroom}/>
 
         </div>
 
