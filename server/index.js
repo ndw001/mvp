@@ -15,11 +15,10 @@ app.get('/', (req,res) => {
   res.send('This is the server');
 })
 
-app.get('/onelink', (req,res) => {
+app.get('/myplaces', (req,res) => {
   axios.get('www.refugerestrooms.org/api/v1/restrooms/by_location?lat=34.108009009714664&lng=-118.05728536777977')
   .then(function(response){
-    res.send('yo');
-    console.log(response);
+    res.send(response.data);
   })
   .catch(function(error){
     res.send(error);

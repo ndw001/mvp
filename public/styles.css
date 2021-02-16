@@ -1,8 +1,14 @@
 .banner {
   text-align: center;
   background: lightblue;
-  padding: 60px;
+  padding: 10px;
   font-family: Tahoma;
+}
+
+.link {
+  color: black;
+  font-family: Tahoma;
+
 }
 
 .cordinates {
@@ -23,8 +29,3 @@
   font-family: Tahoma;
   font-weight: bold;
 }
-
-
-
-
-

@@ -1,6 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 import RestroomList from './RestroomList.jsx'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSearchLocation} from '@fortawesome/free-solid-svg-icons'
+import {faMapMarked} from '@fortawesome/free-solid-svg-icons'
+import {faUserEdit} from '@fortawesome/free-solid-svg-icons'
 
 
 class App extends React.Component {
@@ -26,7 +30,6 @@ class App extends React.Component {
 
   setLong(e){
     e.persist();
-    debugger;
     this.setState({
       longitude: e.target.value
     })
@@ -51,7 +54,24 @@ class App extends React.Component {
   render() {
     return(
       <div>
-        <h1 className='banner'>Restroom Rater</h1>
+        <div className='banner'>
+          <h1 className='title'>Restroom Rater</h1>
+          <div className='link'>
+            <FontAwesomeIcon icon={faSearchLocation}/>
+            <a href='/'>Search</a>
+            <FontAwesomeIcon icon={faSearchLocation}/>
+          </div>
+          <div>
+            <FontAwesomeIcon icon={faMapMarked}/>
+            <a>Saved Places</a>
+            <FontAwesomeIcon icon={faMapMarked}/>
+          </div>
+          <div>
+            <FontAwesomeIcon icon={faUserEdit}/>
+            <a>My Reviews</a>
+            <FontAwesomeIcon icon={faUserEdit}/>
+          </div>
+        </div>
         <div className='cordinates'>
           Enter your latitude
           <input type='text' id='latitude' onChange={this.setLat}/>

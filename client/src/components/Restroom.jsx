@@ -8,7 +8,8 @@ class Restroom extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      showingDetails: false
+      showingDetails: false,
+      review: false,
     }
     this.showDetails = this.showDetails.bind(this);
   }
@@ -29,10 +30,15 @@ class Restroom extends React.Component{
       return(
         <div className='restroom'>
           <div onClick={this.showDetails} className='clickRR'>
-          {this.props.restroom.name}
+            {this.props.restroom.name}
           </div>
-          <FontAwesomeIcon icon={faMapMarkerAlt} />
-          <Rating />
+          <div>
+            {this.props.restroom.distance.toFixed(2)} miles away
+          </div>
+          <div>
+            {this.props.restroom.street}
+          </div>
+          <Rating/>
 
         </div>
 

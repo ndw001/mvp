@@ -1,26 +1,24 @@
 import React from 'react'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 
 class Rating extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      visited: false
-    }
 
+    this.modalOpen = this.modalOpen.bind(this);
+  }
+
+  modalOpen(e) {
+    console.log('hi')
   }
 
   render(){
-      if(this.state.visited) {
-        return (
-          <div className='rating'>
-          </div>
-        )
-      } else {
-        return (
-          <div className='rating'>
-          </div>
-        )
-      }
+    return (
+      <div>
+        bro
+      </div>
+    )
   }
 
 
