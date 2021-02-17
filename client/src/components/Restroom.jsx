@@ -10,6 +10,11 @@ class Restroom extends React.Component{
     this.state = {
       showingDetails: false,
       review: false,
+      safe: 0,
+      access: 0,
+      clean:0,
+      comments: ''
+
     }
     this.showDetails = this.showDetails.bind(this);
   }
@@ -39,7 +44,6 @@ class Restroom extends React.Component{
             {this.props.restroom.street}
           </div>
           <Rating restroom={this.props.restroom}/>
-
         </div>
 
       )

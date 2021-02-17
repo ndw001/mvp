@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearchLocation} from '@fortawesome/free-solid-svg-icons'
 import {faMapMarked} from '@fortawesome/free-solid-svg-icons'
 import {faUserEdit} from '@fortawesome/free-solid-svg-icons'
-
+import Banner from './Banner.jsx'
 
 class App extends React.Component {
   constructor(props){
@@ -14,10 +14,16 @@ class App extends React.Component {
       latitude: 0,
       longitude: 0,
       restroomList: [],
+      viewSaved: false,
+      viewReviews: false,
+      savedPlaces: [],
     }
     this.setLat = this.setLat.bind(this);
     this.setLong = this.setLong.bind(this);
-    this.restroomSearch = this.restroomSearch.bind(this);
+    this.sampleData = this.sampleData.bind(this);
+    this.searchRestrooms = this.searchRestrooms.bind(this);
+    this.viewSaved = this.viewSaved.bind(this);
+    this.viewReviews = this.viewReviews.bind(this);
   }
 
   setLat(e){
@@ -37,7 +43,7 @@ class App extends React.Component {
     // console.log(this.state.longitude);
   }
 
-  restroomSearch() {
+  sampleData() {
       let app = this;
       axios.get('https://www.refugerestrooms.org/api/v1/restrooms/by_location?ada=true&lat=34.108009009714664&lng=-118.05728536777977')
       .then(function(response){
@@ -51,43 +57,121 @@ class App extends React.Component {
       })
   }
 
+  searchRestrooms() {
+    let app = this;
+    let lat = this.state.latitude;
+    let long = this.state.longitude;
+    axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?ada=true&lat=${lat}&lng=${long}`)
+    .then(function(response){
+      // debugger;
+      app.setState({
+        restroomList: response.data
+      })
+    })
+    .catch(function(error){
+      console.log('in the server ',error);
+    })
+  }
+
+  viewSaved(e){
+    this.setState({
+      viewSaved: !this.state.viewSaved
+    })
+  }
+
+  viewReviews(e){
+    this.setState({
+      viewReviews: !this.state.viewReviews
+    })
+  }
+
   render() {
-    return(
-      <div>
-        <div className='banner'>
-          <h1 className='title'>Restroom Rater</h1>
-          <div className='link'>
-            <FontAwesomeIcon icon={faSearchLocation}/>
-            <a href='/'>Search</a>
-            <FontAwesomeIcon icon={faSearchLocation}/>
+    if(this.state.viewSaved){
+      return (
+        <div>
+          <div className='banner'>
+            <h1 className='title'>Restroom Rater</h1>
+            <div className='link'>
+              <FontAwesomeIcon icon={faSearchLocation}/>
+              <a href='/'>Search</a>
+              <FontAwesomeIcon icon={faSearchLocation}/>
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faMapMarked}/>
+              <a onClick={this.viewSaved}>Saved Places</a>
+              <FontAwesomeIcon icon={faMapMarked}/>
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faUserEdit}/>
+              <a onClick={this.viewReviews}>My Reviews</a>
+              <FontAwesomeIcon icon={faUserEdit}/>
+            </div>
           </div>
-          <div>
-            <FontAwesomeIcon icon={faMapMarked}/>
-            <a>Saved Places</a>
-            <FontAwesomeIcon icon={faMapMarked}/>
+
+        </div>
+      )
+    } else if(this.state.viewReviews){
+      return (
+        <div>
+          <div className='banner'>
+            <h1 className='title'>Restroom Rater</h1>
+            <div className='link'>
+              <FontAwesomeIcon icon={faSearchLocation}/>
+              <a href='/'>Search</a>
+              <FontAwesomeIcon icon={faSearchLocation}/>
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faMapMarked}/>
+              <a onClick={this.viewSaved}>Saved Places</a>
+              <FontAwesomeIcon icon={faMapMarked}/>
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faUserEdit}/>
+              <a onClick={this.viewReviews}>My Reviews</a>
+              <FontAwesomeIcon icon={faUserEdit}/>
+            </div>
           </div>
-          <div>
-            <FontAwesomeIcon icon={faUserEdit}/>
-            <a>My Reviews</a>
-            <FontAwesomeIcon icon={faUserEdit}/>
+
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <div className='banner'>
+            <h1 className='title'>Restroom Rater</h1>
+            <div className='link'>
+              <FontAwesomeIcon icon={faSearchLocation}/>
+              <a href='/'>Search</a>
+              <FontAwesomeIcon icon={faSearchLocation}/>
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faMapMarked}/>
+              <a onClick={this.viewSaved}>Saved Places</a>
+              <FontAwesomeIcon icon={faMapMarked}/>
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faUserEdit}/>
+              <a onClick={this.viewReviews}>My Reviews</a>
+              <FontAwesomeIcon icon={faUserEdit}/>
+            </div>
+          </div>
+          <div className='cordinates'>
+            Enter your latitude
+            <input type='text' id='latitude' onChange={this.setLat}/>
+            <div></div>
+            Enter your longitude
+            <input type='text' id='longitude' onChange={this.setLong}/>
+            <div></div>
+            <button type='submit' onClick={this.searchRestrooms}>Search</button>
+            <div></div>
+            <button type='submit' onClick={this.sampleData}>Search TC</button>
+          </div>
+          <div className='list'>
+            <RestroomList restrooms={this.state.restroomList}/>
           </div>
         </div>
-        <div className='cordinates'>
-          Enter your latitude
-          <input type='text' id='latitude' onChange={this.setLat}/>
-          <div></div>
-          Enter your longitude
-          <input type='text' id='longitude' onChange={this.setLong}/>
-          <button type='submit' onClick={this.restroomSearch}>Search</button>
-        </div>
-        <div className='list'>
-          <RestroomList restrooms={this.state.restroomList}/>
-        </div>
-
-
-      </div>
-
-    )
+      )
+    }
   }
 }
 
