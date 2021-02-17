@@ -21,6 +21,8 @@ class App extends React.Component {
     this.setLat = this.setLat.bind(this);
     this.setLong = this.setLong.bind(this);
     this.sampleData = this.sampleData.bind(this);
+    this.sampleData2 = this.sampleData2.bind(this);
+    this.sampleData3 = this.sampleData3.bind(this);
     this.searchRestrooms = this.searchRestrooms.bind(this);
     this.viewSaved = this.viewSaved.bind(this);
     this.viewReviews = this.viewReviews.bind(this);
@@ -57,6 +59,34 @@ class App extends React.Component {
       })
   }
 
+  sampleData2() {
+    let app = this;
+    axios.get('https://www.refugerestrooms.org/api/v1/restrooms/by_location?ada=true&lat=33.81294&lng=-117.91870')
+    .then(function(response){
+      // debugger;
+      app.setState({
+        restroomList: response.data
+      })
+    })
+    .catch(function(error){
+      console.log('in the server ',error);
+    })
+  }
+
+  sampleData3() {
+    let app = this;
+    axios.get('https://www.refugerestrooms.org/api/v1/restrooms/by_location?ada=true&lat=22.31277&lng=114.04219')
+    .then(function(response){
+      // debugger;
+      app.setState({
+        restroomList: response.data
+      })
+    })
+    .catch(function(error){
+      console.log('in the server ',error);
+    })
+  }
+
   searchRestrooms() {
     let app = this;
     let lat = this.state.latitude;
@@ -89,72 +119,27 @@ class App extends React.Component {
     if(this.state.viewSaved){
       return (
         <div>
-          <div className='banner'>
-            <h1 className='title'>Restroom Rater</h1>
-            <div className='link'>
-              <FontAwesomeIcon icon={faSearchLocation}/>
-              <a href='/'>Search</a>
-              <FontAwesomeIcon icon={faSearchLocation}/>
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faMapMarked}/>
-              <a onClick={this.viewSaved}>Saved Places</a>
-              <FontAwesomeIcon icon={faMapMarked}/>
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faUserEdit}/>
-              <a onClick={this.viewReviews}>My Reviews</a>
-              <FontAwesomeIcon icon={faUserEdit}/>
-            </div>
-          </div>
+          <Banner viewSaved={this.viewSaved} viewReviews={this.viewReviews}/>
+          <div className='savedList'>
+            <button type='submit' onClick={this.sampleData}>Temple City Park</button>
+            <button type='submit' onClick={this.sampleData2}>Disneyland LA</button>
+            <button type='submit' onClick={this.sampleData3}>Disneyland HK</button>
 
+          <div></div>
+          <RestroomList restrooms={this.state.restroomList}/>
+          </div>
         </div>
       )
     } else if(this.state.viewReviews){
       return (
         <div>
-          <div className='banner'>
-            <h1 className='title'>Restroom Rater</h1>
-            <div className='link'>
-              <FontAwesomeIcon icon={faSearchLocation}/>
-              <a href='/'>Search</a>
-              <FontAwesomeIcon icon={faSearchLocation}/>
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faMapMarked}/>
-              <a onClick={this.viewSaved}>Saved Places</a>
-              <FontAwesomeIcon icon={faMapMarked}/>
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faUserEdit}/>
-              <a onClick={this.viewReviews}>My Reviews</a>
-              <FontAwesomeIcon icon={faUserEdit}/>
-            </div>
-          </div>
-
+          <Banner viewSaved={this.viewSaved} viewReviews={this.viewReviews}/>
         </div>
       )
     } else {
       return(
         <div>
-          <div className='banner'>
-            <h1 className='title'>Restroom Rater</h1>
-            <div className='link'>
-              <FontAwesomeIcon icon={faSearchLocation}/>
-              <a href='/'>Search</a>
-              <FontAwesomeIcon icon={faSearchLocation}/>
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faMapMarked}/>
-              <a onClick={this.viewSaved}>Saved Places</a>
-              <FontAwesomeIcon icon={faMapMarked}/>
-            </div>
-            <div>
-              <FontAwesomeIcon icon={faUserEdit}/>
-              <a onClick={this.viewReviews}>My Reviews</a>
-              <FontAwesomeIcon icon={faUserEdit}/>
-            </div>
-          </div>
+          <Banner viewSaved={this.viewSaved} viewReviews={this.viewReviews}/>
           <div className='cordinates'>
             Enter your latitude
             <input type='text' id='latitude' onChange={this.setLat}/>
@@ -164,7 +149,6 @@ class App extends React.Component {
             <div></div>
             <button type='submit' onClick={this.searchRestrooms}>Search</button>
             <div></div>
-            <button type='submit' onClick={this.sampleData}>Search TC</button>
           </div>
           <div className='list'>
             <RestroomList restrooms={this.state.restroomList}/>

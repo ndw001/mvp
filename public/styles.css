@@ -1,6 +1,6 @@
 .banner {
   text-align: center;
-  background: lightblue;
+  background: lightgreen;
   padding: 10px;
   font-family: Tahoma;
 }
@@ -42,6 +42,14 @@
   text-align: center;
 }
 
+.savedList {
+  text-align: center;
+  /* display: flex; */
+}
+
+.viewReview{
+  font-weight:bold;
+}
 
 
 

@@ -8,8 +8,9 @@ import {faUserEdit} from '@fortawesome/free-solid-svg-icons'
 
 
 class Banner extends React.Component{
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
+
   }
 
 
@@ -25,12 +26,12 @@ class Banner extends React.Component{
           </div>
           <div>
             <FontAwesomeIcon icon={faMapMarked}/>
-            <a onClick={this.viewSaved}>Saved Places</a>
+            <a onClick={this.props.viewSaved}>Saved Places</a>
             <FontAwesomeIcon icon={faMapMarked}/>
           </div>
           <div>
             <FontAwesomeIcon icon={faUserEdit}/>
-            <a onClick={this.viewReviews}>My Reviews</a>
+            <a onClick={this.props.viewReviews}>My Reviews</a>
             <FontAwesomeIcon icon={faUserEdit}/>
           </div>
         </div>
