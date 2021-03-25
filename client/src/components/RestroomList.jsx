@@ -1,7 +1,6 @@
 import React from 'react'
 import Restroom from './Restroom.jsx'
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-
+import Map from './Map.jsx'
 
 class RestroomList extends React.Component {
   constructor(props){
@@ -22,7 +21,7 @@ class RestroomList extends React.Component {
             )
           })}
 
-
+          {/* <Map/> */}
 
         </div>
       )
