@@ -1,5 +1,7 @@
 import React from 'react'
 import Restroom from './Restroom.jsx'
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+
 
 class RestroomList extends React.Component {
   constructor(props){
@@ -19,7 +21,9 @@ class RestroomList extends React.Component {
               </div>
             )
           })}
-          {/* {console.log(this.props.restrooms)} */}
+
+
+
         </div>
       )
     } else {
@@ -33,9 +37,5 @@ class RestroomList extends React.Component {
   }
 
 }
-
-
-
-
 
 export default RestroomList
