@@ -30,6 +30,10 @@ class Restroom extends React.Component{
     })
   }
 
+  saveFave(e){
+
+  }
+
   render(){
     if(this.state.showingDetails){
       return(
