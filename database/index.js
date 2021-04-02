@@ -16,6 +16,8 @@ const reviewSchema = new mongoose.Schema({
   clean: Number
 })
 
-let review = mongoose.model('review', reviewSchema);
+let Review = mongoose.model('review', reviewSchema);
 
-
+let saveReview = () => {
+  Review.save
+}
