@@ -10,7 +10,6 @@ mongoose.connect('mongodb://localhost/Restroomrater', {useNewUrlParser: true });
 
 const reviewSchema = new mongoose.Schema({
   name: String,
-  street: String,
   safe: Number,
   access: Number,
   clean: Number
@@ -18,6 +17,14 @@ const reviewSchema = new mongoose.Schema({
 
 let Review = mongoose.model('review', reviewSchema);
 
-let saveReview = () => {
-  Review.save
+let saveReview = (review) => {
+  Review.insertMany(review)
+  .then( (data) => {
+    console.log('Review was saved');
+  })
+  .catch( (err) => {
+    console.log('Error when saving review ', err)
+  })
 }
+
+module.exports.saveReview = saveReview;

@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import Rodal from 'rodal';
+import db from '../../../database/index.js';
 
 
 class Rating extends React.Component {
@@ -34,12 +35,13 @@ class Rating extends React.Component {
     let safe = document.getElementById('safeChoice').value;
     let access = document.getElementById('accessChoice').value;
     let clean = document.getElementById('cleanChoice').value;
-    let review = [safe, access, clean];
+    let review = [this.props.restroom.name, safe, access, clean];
     this.setState({
       visible: false,
       reviewData: review,
       viewRating: true,
     })
+    db.saveReviewData(review);
   }
 
   render(){
