@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Review from './Review.jsx'
 import RestroomList from './RestroomList.jsx'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearchLocation} from '@fortawesome/free-solid-svg-icons'
@@ -17,6 +18,7 @@ class App extends React.Component {
       viewSaved: false,
       viewReviews: false,
       savedPlaces: [],
+      savedReviews: [],
     }
     this.setLat = this.setLat.bind(this);
     this.setLong = this.setLong.bind(this);
@@ -113,6 +115,16 @@ class App extends React.Component {
     this.setState({
       viewReviews: !this.state.viewReviews
     })
+    let application = this;
+    axios.get('/reviews')
+    .then(function(response){
+      application.setState({
+        savedReviews: response.data
+      })
+    })
+    .catch(function(error){
+      console.log('in the server ',error);
+    })
   }
 
   render() {
@@ -134,6 +146,8 @@ class App extends React.Component {
       return (
         <div>
           <Banner viewSaved={this.viewSaved} viewReviews={this.viewReviews}/>
+          <h1>My Reviews</h1>
+          <Review reviews={this.state.savedReviews}/>
         </div>
       )
     } else {

@@ -28,6 +28,13 @@ app.get('/myplaces', (req,res) => {
 
 })
 
+app.get('/reviews', (req,res) => {
+  db.getReviews( (result) => {
+    res.send(result);
+  });
+})
+
+
 app.post('/reviews', (req, res) => {
   db.saveReview(req.body);
   // console.log(req.body);

@@ -25,6 +25,17 @@ let saveReview = (review) => {
     console.log('Error when saving review ', err)
   })
 }
+
+let getReviews = (callback) => {
+  Review.find()
+  .then( (data) => {
+    callback(data);
+  })
+  .catch( (err) => {
+    console.log('Error when returning reviews ', err)
+  })
+}
+module.exports.getReviews = getReviews;
 module.exports.saveReview = saveReview;
 
 // saveReview({name:'cats', safe:2, access:5, clean: 6})
