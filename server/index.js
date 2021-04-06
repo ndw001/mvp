@@ -5,6 +5,7 @@ let bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
 let port = 3000;
+let db = require('../database/index.js');
 
 app.use(express.static(path.join(__dirname, '../public')))
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,6 +25,12 @@ app.get('/myplaces', (req,res) => {
     res.send(error);
     console.log('in the server ',error);
   })
+
+})
+
+app.post('/reviews', (req, res) => {
+  db.saveReview(req.body);
+  // console.log(req.body);
 })
 
 app.listen(port, () => {

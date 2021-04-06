@@ -3,13 +3,15 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import Rodal from 'rodal';
-import db from '../../../database/index.js';
-
+// import {saveReview} from '../../../database/index.js';
+// import mongoose from 'mongoose';
+import axios from 'axios';
 
 class Rating extends React.Component {
   constructor(props){
     super(props)
     this.state = {
+      name: this.props.restroom.name,
       visible: false,
       reviewData: [],
       viewRating: false,
@@ -35,13 +37,21 @@ class Rating extends React.Component {
     let safe = document.getElementById('safeChoice').value;
     let access = document.getElementById('accessChoice').value;
     let clean = document.getElementById('cleanChoice').value;
-    let review = [this.props.restroom.name, safe, access, clean];
+    let review = [this.state.name, safe, access, clean];
     this.setState({
       visible: false,
       reviewData: review,
       viewRating: true,
     })
-    db.saveReviewData(review);
+    axios.post('/reviews', {name: this.state.name, safe: safe, access:access, clean:clean})
+    .then(function(response){
+      console.log('Review Saved')
+      // res.send(response.data);
+    })
+    .catch(function(error){
+      res.send(error);
+      console.log('in the server ',error);
+    })
   }
 
   render(){
@@ -56,13 +66,13 @@ class Rating extends React.Component {
           <div></div>
           <div className='viewReview'>
             <div>
-              Safety: {this.state.reviewData[0]}
+              Safety: {this.state.reviewData[1]}
             </div>
             <div>
-              Accessibility: {this.state.reviewData[1]}
+              Accessibility: {this.state.reviewData[2]}
             </div>
             <div>
-              Cleanliness: {this.state.reviewData[2]}
+              Cleanliness: {this.state.reviewData[3]}
             </div>
           </div>
           <Rodal visible={this.state.visible} onClose={this.hide}>

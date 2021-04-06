@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/Restroomrater', {useNewUrlParser: true });
-
+mongoose.connect('mongodb://localhost/Restroomrater', {useNewUrlParser: true, useUnifiedTopology: true});
+// :27017
 // mongoose.connection.once('open', function(){
 //   console.log('Connected to Mongodb DB')
 // }).on('error', function(error){
 //   console.log('The error is: ', error);
 // })
 
-const reviewSchema = new mongoose.Schema({
+const reviewSchema = mongoose.Schema({
   name: String,
   safe: Number,
   access: Number,
@@ -26,5 +25,6 @@ let saveReview = (review) => {
     console.log('Error when saving review ', err)
   })
 }
-
 module.exports.saveReview = saveReview;
+
+// saveReview({name:'cats', safe:2, access:5, clean: 6})
